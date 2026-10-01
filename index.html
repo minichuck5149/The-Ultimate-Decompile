@@ -246,10 +246,13 @@
 
         let x = 280;
         let y = 180;
+        let vy = 0;
+        const gravity = 0.45;
         const speed = 10;
         const squareSize = 40;
         const containerWidth = gameContainer.offsetWidth;
         const containerHeight = gameContainer.offsetHeight;
+        const groundY = containerHeight - squareSize;
 
         const keys = {};
 
@@ -265,7 +268,7 @@
             if (keys['ArrowUp'] && y > 0) {
                 y -= speed;
             }
-            if (keys['ArrowDown'] && y < containerHeight - squareSize) {
+            if (keys['ArrowDown'] && y < groundY) {
                 y += speed;
             }
             if (keys['ArrowLeft'] && x > 0) {
@@ -273,6 +276,19 @@
             }
             if (keys['ArrowRight'] && x < containerWidth - squareSize) {
                 x += speed;
+            }
+
+            vy += gravity;
+            y += vy;
+
+            if (y > groundY) {
+                y = groundY;
+                vy = 0;
+            }
+
+            if (y < 0) {
+                y = 0;
+                vy = 0;
             }
 
             square.style.left = x + 'px';
