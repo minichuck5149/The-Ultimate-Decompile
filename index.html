@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Square Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background: linear-gradient(180deg, #87ceeb 0%, #87ceeb 60%, #2d8f2d 60%, #2d8f2d 100%);
+            border: 2px solid #4a9eff;
+            overflow: hidden;
+        }
+
+        #square {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #4a9eff;
+            left: 280px;
+            top: 180px;
+            transition: all 0.05s;
+        }
+
+        #info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #ffffff;
+            font-size: 14px;
+            z-index: 10;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="square"></div>
+        <div id="info">Use Arrow Keys to move</div>
+    </div>
+
+    <script>
+        const square = document.getElementById('square');
+        const gameContainer = document.getElementById('gameContainer');
+
+        let x = 280;
+        let y = 180;
+        const speed = 10;
+        const squareSize = 40;
+        const containerWidth = gameContainer.offsetWidth;
+        const containerHeight = gameContainer.offsetHeight;
+
+        const keys = {};
+
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        function update() {
+            if (keys['ArrowUp'] && y > 0) {
+                y -= speed;
+            }
+            if (keys['ArrowDown'] && y < containerHeight - squareSize) {
+                y += speed;
+            }
+            if (keys['ArrowLeft'] && x > 0) {
+                x -= speed;
+            }
+            if (keys['ArrowRight'] && x < containerWidth - squareSize) {
+                x += speed;
+            }
+
+            square.style.left = x + 'px';
+            square.style.top = y + 'px';
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+</html>
