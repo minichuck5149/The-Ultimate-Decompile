@@ -39,7 +39,7 @@
             position: absolute;
             bottom: 10px;
             left: 10px;
-            color: #4a9eff;
+            color: #4a8eff;
             font-size: 14px;
             z-index: 10;
         }
